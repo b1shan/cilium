@@ -81,7 +81,7 @@ func validateCNPs() error {
 		return fmt.Errorf("Unable to create API extensions clientset for k8s CRD: %w", err)
 	}
 
-	npValidator, err := v2_validation.NewNPValidator()
+	npValidator, err := v2_validation.NewNPValidator(log)
 	if err != nil {
 		return err
 	}

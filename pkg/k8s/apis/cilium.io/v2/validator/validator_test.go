@@ -20,9 +20,14 @@ import (
 	"encoding/json"
 	"testing"
 
+	"github.com/sirupsen/logrus"
 	. "gopkg.in/check.v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"sigs.k8s.io/yaml"
+)
+
+var (
+	log = logrus.New()
 )
 
 func Test(t *testing.T) {
@@ -88,7 +93,7 @@ spec:
 	err = json.Unmarshal(jsnByte, &us)
 	c.Assert(err, IsNil)
 
-	validator, err := NewNPValidator()
+	validator, err := NewNPValidator(log)
 	c.Assert(err, IsNil)
 	err = validator.ValidateCNP(&us)
 	// Err can't be nil since validation should detect the policy is not correct.
@@ -122,7 +127,7 @@ spec:
 	err = json.Unmarshal(jsnByte, &us)
 	c.Assert(err, IsNil)
 
-	validator, err := NewNPValidator()
+	validator, err := NewNPValidator(log)
 	c.Assert(err, IsNil)
 	err = validator.ValidateCNP(&us)
 	// Err can't be nil since validation should detect the policy is not correct.
@@ -153,7 +158,7 @@ spec:
 	err = json.Unmarshal(jsnByte, &us)
 	c.Assert(err, IsNil)
 
-	validator, err := NewNPValidator()
+	validator, err := NewNPValidator(log)
 	c.Assert(err, IsNil)
 	err = validator.ValidateCNP(&us)
 	c.Assert(err, IsNil)
@@ -182,7 +187,7 @@ spec:
 	err = json.Unmarshal(jsnByte, &us)
 	c.Assert(err, IsNil)
 
-	validator, err := NewNPValidator()
+	validator, err := NewNPValidator(log)
 	c.Assert(err, IsNil)
 	err = validator.ValidateCCNP(&us)
 	c.Assert(err, IsNil)
@@ -216,7 +221,7 @@ spec:
 	err = json.Unmarshal(jsnByte, &us)
 	c.Assert(err, IsNil)
 
-	validator, err := NewNPValidator()
+	validator, err := NewNPValidator(log)
 	c.Assert(err, IsNil)
 	err = validator.ValidateCCNP(&us)
 	// Err can't be nil since validation should detect the policy is not correct.
